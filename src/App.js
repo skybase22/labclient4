@@ -1,28 +1,43 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import TaskList from './todo/TaskList'
+import InputTask from "./todo/InputTask";
+import Github from "./github";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+
+   state = {
+       tasks: [{id: 1, task: 'Do homework',where : 'home'},
+               {id: 2, task: 'Read book',where : 'library'}],
+       id:3,user:''
+   }
+
+   addTask = (task,where) => {
+       this.setState({
+                tasks: [...this.state.tasks, {id: this.state.id,task,where } ],
+                id: this.state.id+1  })
+   }
+   addUser = () =>
+   {
+     this.setState({
+      user: this.state.user
+
+     })
+   }
+
+   render() {   
+
+
+       return (
+           <div className="App">
+               <h1>Todo</h1>
+               <TaskList tasks={this.state.tasks}/>
+               <InputTask addTask={this.addTask} id={this.state.id} user= {this.state.user}/>
+               <br/>
+               <Github user = {this.state.user}/>
+           </div>
+       );
+   }
 }
 
 export default App;
